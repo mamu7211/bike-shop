@@ -1,15 +1,26 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Main/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Main from './components/Main.vue'
+import fs from 'fs'
+import { app } from '@electron/remote'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Main
+  },
+  mounted(){
+    console.log("APP PATH", app.getAppPath());
+    console.log("Mounted...");
+    const files = fs.readdirSync(app.getPath('appData'));
+    console.log("GOT FILES", files)
+    files.forEach((file)=>{
+      console.log(file);
+    })
   }
 }
 </script>
